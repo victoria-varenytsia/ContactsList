@@ -1,0 +1,23 @@
+<h2 mat-dialog-title>{{ isEdit ? 'Редагувати контакт' : 'Додати контакт' }}</h2>
+<form [formGroup]="contactForm" (ngSubmit)="saveContact()">
+  <mat-form-field appearance="fill">
+    <mat-label>Ім'я</mat-label>
+    <input matInput formControlName="firstName" required />
+    <mat-error *ngIf="contactForm.get('firstName')?.invalid">Ім'я обов'язкове</mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Прізвище</mat-label>
+    <input matInput formControlName="lastName" required />
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Номер телефону</mat-label>
+    <input matInput formControlName="phone" required type="tel" />
+  </mat-form-field>
+
+  <div mat-dialog-actions>
+    <button mat-button mat-dialog-close>Скасувати</button>
+    <button mat-raised-button color="primary" [disabled]="contactForm.invalid">Зберегти</button>
+  </div>
+</form>

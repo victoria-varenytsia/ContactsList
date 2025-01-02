@@ -1,0 +1,7 @@
+<p>home works!</p>
+
+<button mat-raised-button color="primary" (click)="addContact()">Додати контакт</button>
+
+<div *ngFor="let contact of contacts">
+  <p>{{ contact.firstName }} {{ contact.lastName }} - {{ contact.phone }}</p>
+</div>
