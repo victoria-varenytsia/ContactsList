@@ -14,13 +14,30 @@
   >
     ✖
   </button>
+  <button
+    mat-raised-button
+    class="add-btn"
+    color="primary"
+    (click)="addContact()"
+  >
+    Add new
+  </button>
 </div>
-
 
 <div *ngFor="let contact of filteredContacts" class="contact-item">
-  <p matTooltip="Це тултіп для параграфа" matTooltipPosition="above" (click)="viewContactDetail(contact.id)">{{ contact.firstName }} {{ contact.lastName }} - {{ contact.phone }}</p>
-  <button (click)="editContact(contact)">Edit</button>
-  <button (click)="deleteContact(contact)">Delete</button>
-</div>
+  <div class="contact-info" (click)="viewContactDetail(contact.id)">
+    <div>
+      <p class="name">{{ contact.firstName }} {{ contact.lastName }}</p>
+      <p class="phone">{{ contact.phone }}</p>
+    </div>
+  </div>
 
-<button mat-raised-button color="primary" (click)="addContact()">Додати контакт</button>
+  <div class="contact-actions">
+    <button mat-button color="primary" (click)="editContact(contact)">
+      Edit
+    </button>
+    <button mat-button color="warn" (click)="deleteContact(contact)">
+      Delete
+    </button>
+  </div>
+</div>

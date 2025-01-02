@@ -1,7 +1,7 @@
-<div *ngIf="contact">
-  <h2>{{ contact.firstName }} {{ contact.lastName }}</h2>
-  <p>Phone: {{ contact.phone }}</p>
-  <p>{{contact.email}}</p>
-  <p>{{contact.dateOfBirth}}</p>
-  <button mat-raised-button color="primary" [routerLink]="['/']">Back to Contacts</button>
+<div *ngIf="contact" class="contact-detail">
+  <h2 class="contact-name">{{ contact.firstName }} {{ contact.lastName }}</h2>
+  <p class="contact-phone"><strong>Phone:</strong> {{ contact.phone }}</p>
+  <p class="contact-email"><strong>Email:</strong> {{ contact.email }}</p>
+  <p class="contact-dob"><strong>Date of Birth:</strong> {{ contact.dateOfBirth | date: 'shortDate' }}</p>
+  <button mat-raised-button color="primary" [routerLink]="['/']" class="back-btn">Back to Contacts</button>
 </div>

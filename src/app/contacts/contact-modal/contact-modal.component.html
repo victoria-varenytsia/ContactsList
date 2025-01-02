@@ -1,37 +1,37 @@
-<h2 mat-dialog-title>{{ isEdit ? 'Редагувати контакт' : 'Додати контакт' }}</h2>
-<form [formGroup]="contactForm" (ngSubmit)="saveContact()">
+<h2 mat-dialog-title>{{ isEdit ? 'Edit Contact' : 'Add Contact' }}</h2>
+<form [formGroup]="contactForm" (ngSubmit)="saveContact()" class="contact-form">
   <mat-form-field appearance="fill">
-    <mat-label>Name</mat-label>
+    <mat-label>First Name</mat-label>
     <input matInput formControlName="firstName" required />
-    <mat-error *ngIf="contactForm.get('firstName')?.invalid">Ім'я обов'язкове</mat-error>
+    <mat-error *ngIf="contactForm.get('firstName')?.invalid">First name is required</mat-error>
   </mat-form-field>
 
   <mat-form-field appearance="fill">
-    <mat-label>Surname</mat-label>
+    <mat-label>Last Name</mat-label>
     <input matInput formControlName="lastName" required />
-    <mat-error *ngIf="contactForm.get('lastName')?.invalid">Прізвище обов'язкове</mat-error>
+    <mat-error *ngIf="contactForm.get('lastName')?.invalid">Last name is required</mat-error>
   </mat-form-field>
 
   <mat-form-field appearance="fill">
     <mat-label>+380-XX-XXX-XX-XX</mat-label>
     <input matInput formControlName="phone" required type="tel" />
-    <mat-error *ngIf="contactForm.get('phone')?.invalid">Некоректний номер телефону</mat-error>
+    <mat-error *ngIf="contactForm.get('phone')?.invalid">Invalid phone number</mat-error>
   </mat-form-field>
 
   <mat-form-field appearance="fill">
     <mat-label>Email</mat-label>
     <input matInput formControlName="email" required type="email" />
-    <mat-error *ngIf="contactForm.get('email')?.invalid">Некоректна email-адреса</mat-error>
+    <mat-error *ngIf="contactForm.get('email')?.invalid">Invalid email address</mat-error>
   </mat-form-field>
 
   <mat-form-field appearance="fill">
     <mat-label>Date of Birth</mat-label>
     <input matInput formControlName="dateOfBirth" type="date" />
-    <mat-error *ngIf="contactForm.get('dateOfBirth')?.invalid">Вкажіть коректну дату</mat-error>
+    <mat-error *ngIf="contactForm.get('dateOfBirth')?.invalid">Please provide a valid date</mat-error>
   </mat-form-field>
 
   <div mat-dialog-actions>
-    <button mat-button mat-dialog-close>Скасувати</button>
-    <button mat-raised-button color="primary" [disabled]="contactForm.invalid">Зберегти</button>
+    <button mat-button mat-dialog-close class="cancel-btn">Cancel</button>
+    <button mat-raised-button color="primary" [disabled]="contactForm.invalid" class="save-btn">Save</button>
   </div>
 </form>

@@ -1,0 +1,43 @@
+.contact-detail {
+  background-color: #ffffff;
+  padding: 20px;
+  max-width: 600px;
+  margin: 20px auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  
+  .contact-name {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #005CBB;
+    margin-bottom: 15px;
+  }
+
+  .contact-phone, .contact-email, .contact-dob {
+    font-size: 18px;
+    color: #666;
+    margin-bottom: 15px;
+  }
+
+  .contact-phone strong, .contact-email strong, .contact-dob strong {
+    font-weight: 600;
+    color: #333;
+  }
+
+  .back-btn {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 20px;
+    border-radius: 5px;
+    display: block;
+    width: 100%;
+    border: none ;
+    background-color: #005CBB;
+    color: #ffffff;
+    border-radius: 20px;
+  }
+  
+  .back-btn:hover {
+    background-color: #154e87;
+  }
+}

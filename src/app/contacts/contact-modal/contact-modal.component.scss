@@ -1,0 +1,58 @@
+.contact-form {
+  width: auto;
+  padding: 0 60px 0 20px;
+
+
+  mat-form-field {
+    width: 100%;
+    margin-top: 10px;
+    height: 80px;
+  }
+
+  mat-label {
+    font-weight: 600;
+    color: #005CBB;
+  }
+
+  input {
+    font-size: 1rem;
+    padding: 10px;
+    background-color: none;
+  }
+
+  mat-error {
+    color: #f44336;
+    font-size: 0.875rem;
+  }
+
+  mat-dialog-actions {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 10px;
+
+    .cancel-btn {
+      background-color: #e0e0e0;
+      color: #005CBB;
+      font-weight: 500;
+      border-radius: 5px;
+      padding: 10px 20px;
+
+      &:hover {
+        background-color: #bdbdbd;
+      }
+    }
+
+    .save-btn {
+      font-weight: bold;
+      padding: 10px 20px;
+      border-radius: 5px;
+      min-width: 120px;
+      background-color: #005CBB;
+    }
+  }
+}
+
+.save-btn[disabled] {
+  background-color: #bdbdbd;
+  color: #757575;
+}
