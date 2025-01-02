@@ -52,6 +52,10 @@ export class ContactService {
 
   getContacts(): Contact[] {
     const contacts = this.getStoredContacts();
+    if (contacts.length === 0) {
+      this.saveContacts(this.initialContacts);
+      return this.initialContacts;
+    }
     return contacts;
   }
 
