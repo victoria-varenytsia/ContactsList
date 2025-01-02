@@ -1,7 +1,26 @@
-<p>home works!</p>
+<h1>Contact List</h1>
+
+<div class="search-container">
+  <input
+    type="text"
+    class="search-input"
+    placeholder="Enter name or phone"
+    [formControl]="searchControl"
+  />
+  <button
+    class="clear-button"
+    *ngIf="searchControl.value"
+    (click)="searchControl.setValue('')"
+  >
+    ✖
+  </button>
+</div>
+
+
+<div *ngFor="let contact of filteredContacts" class="contact-item">
+  <p matTooltip="Це тултіп для параграфа" matTooltipPosition="above" (click)="viewContactDetail(contact.id)">{{ contact.firstName }} {{ contact.lastName }} - {{ contact.phone }}</p>
+  <button (click)="editContact(contact)">Edit</button>
+  <button (click)="deleteContact(contact)">Delete</button>
+</div>
 
 <button mat-raised-button color="primary" (click)="addContact()">Додати контакт</button>
-
-<div *ngFor="let contact of contacts">
-  <p>{{ contact.firstName }} {{ contact.lastName }} - {{ contact.phone }}</p>
-</div>

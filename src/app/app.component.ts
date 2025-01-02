@@ -1,14 +1,10 @@
+
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { HomeComponent } from "./contacts/home/home.component";
+import { RouterOutlet } from '@angular/router'; 
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, MatFormFieldModule, HomeComponent],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss',
+  imports: [RouterOutlet], 
 })
-export class AppComponent {
-  title = 'contact-list-app';
-}
+export class AppComponent {}

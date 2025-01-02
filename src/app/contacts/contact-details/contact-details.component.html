@@ -1,1 +1,7 @@
-<p>contact-details works!</p>
+<div *ngIf="contact">
+  <h2>{{ contact.firstName }} {{ contact.lastName }}</h2>
+  <p>Phone: {{ contact.phone }}</p>
+  <p>{{contact.email}}</p>
+  <p>{{contact.dateOfBirth}}</p>
+  <button mat-raised-button color="primary" [routerLink]="['/']">Back to Contacts</button>
+</div>

@@ -13,6 +13,7 @@ import {
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-contact-modal',
@@ -23,6 +24,8 @@ import { MatButtonModule } from '@angular/material/button';
     MatInputModule,
     MatButtonModule,
     ReactiveFormsModule,
+    CommonModule,
+    MatDialogModule,
   ],
 })
 export class ContactModalComponent {
@@ -40,8 +43,13 @@ export class ContactModalComponent {
       lastName: [data?.contact?.lastName || '', Validators.required],
       phone: [
         data?.contact?.phone || '',
-        [Validators.required, Validators.pattern(/^\d+$/)],
+        [Validators.required, Validators.pattern(/^\+380\d{9}$/)],
       ],
+      email: [
+        data?.contact?.email || '',
+        [Validators.required, Validators.email],
+      ],
+      dateOfBirth: [data?.contact?.dateOfBirth || '', Validators.required],
     });
   }
 
