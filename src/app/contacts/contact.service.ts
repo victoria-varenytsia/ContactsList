@@ -1,4 +1,3 @@
-
 import { Injectable } from '@angular/core';
 import { Contact } from './models/contact';
 
@@ -43,38 +42,45 @@ export class ContactService {
     },
   ];
 
+  private getStoredContacts(): Contact[] {
+    return JSON.parse(localStorage.getItem(this.storageKey) || '[]');
+  }
+
+  public saveContacts(contacts: Contact[]): void {
+    localStorage.setItem(this.storageKey, JSON.stringify(contacts));
+  }
+
   getContacts(): Contact[] {
-    const contacts = JSON.parse(localStorage.getItem(this.storageKey) || '[]');
-    if (contacts.length === 0) {
-      this.saveContacts(this.initialContacts);
-      return this.initialContacts;
-    }
+    const contacts = this.getStoredContacts();
     return contacts;
   }
 
   addContact(contact: Contact): void {
     const contacts = this.getContacts();
-
-    let newId = 1;
-    if (contacts.length > 0) {
-      const validIds = contacts.filter(
-        (c) => typeof c.id === 'number' && !isNaN(c.id)
-      );
-      if (validIds.length > 0) {
-        newId = Math.max(...validIds.map((c) => c.id)) + 1;
-      }
-    }
-
-    contact.id = newId;
+    contact.id = this.generateNewId(contacts);
     contacts.push(contact);
     this.saveContacts(contacts);
   }
-  saveContacts(contacts: Contact[]): void {
-    localStorage.setItem(this.storageKey, JSON.stringify(contacts));
+
+  private generateNewId(contacts: Contact[]): number {
+    const validIds = contacts.filter(
+      (c) => typeof c.id === 'number' && !isNaN(c.id)
+    );
+    return validIds.length > 0 ? Math.max(...validIds.map((c) => c.id)) + 1 : 1;
   }
 
   getContactById(id: number): Contact | undefined {
+    return this.getContacts().find((contact) => contact.id === id);
+  }
+
+  updateContact(updatedContact: Contact): void {
     const contacts = this.getContacts();
-    return contacts.find((contact) => contact.id === id);
+    const index = contacts.findIndex(
+      (contact) => contact.id === updatedContact.id
+    );
+    if (index > -1) {
+      contacts[index] = { ...updatedContact };
+      this.saveContacts(contacts);
+    }
   }
 }

@@ -1,17 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
+import { ReactiveFormsModule, FormControl } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { FormControl } from '@angular/forms'; 
 import { ContactService } from '../contact.service';
 import { ContactModalComponent } from '../contact-modal/contact-modal.component';
 import { Contact } from '../models/contact';
-import { Router, RouterLink, RouterOutlet } from '@angular/router';
-import { MatTooltipModule } from '@angular/material/tooltip';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -20,28 +16,34 @@ import { MatTooltipModule } from '@angular/material/tooltip';
   styleUrls: ['./home.component.scss'],
   imports: [
     CommonModule,
-    FormsModule,
     ReactiveFormsModule,
     MatDialogModule,
-    MatFormFieldModule,
-    MatInputModule,
     MatButtonModule,
     MatIconModule,
   ],
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
   contacts: Contact[] = [];
   filteredContacts: Contact[] = [];
   searchControl = new FormControl('');
+
   constructor(
     private dialog: MatDialog,
     private contactService: ContactService,
     private router: Router
   ) {}
 
-  ngOnInit() {
-    this.contacts = this.contactService.getContacts(); 
-    this.filteredContacts = [...this.contacts]; 
+  ngOnInit(): void {
+    this.loadContacts();
+    this.setupSearch();
+  }
+
+  private loadContacts(): void {
+    this.contacts = this.contactService.getContacts();
+    this.filteredContacts = [...this.contacts];
+  }
+
+  private setupSearch(): void {
     this.searchControl.valueChanges.subscribe((value) => {
       if (value !== null) {
         this.filterContacts(value);
@@ -49,7 +51,7 @@ export class HomeComponent {
     });
   }
 
-  addContact() {
+  addContact(): void {
     const dialogRef = this.dialog.open(ContactModalComponent, {
       width: '400px',
       data: { contact: null },
@@ -57,14 +59,13 @@ export class HomeComponent {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.contactService.addContact(result); 
-        this.contacts = this.contactService.getContacts(); 
-        this.filteredContacts = [...this.contacts]; 
+        this.contactService.addContact(result);
+        this.loadContacts();
       }
     });
   }
 
-  editContact(contact: any) {
+  editContact(contact: Contact): void {
     const dialogRef = this.dialog.open(ContactModalComponent, {
       width: '400px',
       data: { contact },
@@ -74,33 +75,31 @@ export class HomeComponent {
       if (result) {
         const index = this.contacts.findIndex((c) => c.id === contact.id);
         if (index > -1) {
-          this.contacts[index] = result; 
-          this.contactService.saveContacts(this.contacts); 
-          this.filteredContacts = [...this.contacts]; 
+          this.contacts[index] = result;
+          this.contactService.saveContacts(this.contacts);
+          this.loadContacts();
         }
       }
     });
   }
 
-  deleteContact(contact: any) {
+  deleteContact(contact: Contact): void {
     this.contacts = this.contacts.filter((c) => c.id !== contact.id);
-    this.contactService.saveContacts(this.contacts); 
-    this.filteredContacts = [...this.contacts]; 
+    this.contactService.saveContacts(this.contacts);
+    this.loadContacts();
   }
 
-  filterContacts(query: string) {
-    if (query) {
-      this.filteredContacts = this.contacts.filter((contact: any) =>
-        `${contact.firstName} ${contact.lastName} ${contact.phone}`
-          .toLowerCase()
-          .includes(query.toLowerCase())
-      );
-    } else {
-      this.filteredContacts = [...this.contacts]; 
-    }
+  filterContacts(query: string): void {
+    this.filteredContacts = query
+      ? this.contacts.filter((contact) =>
+          `${contact.firstName} ${contact.lastName} ${contact.phone}`
+            .toLowerCase()
+            .includes(query.toLowerCase())
+        )
+      : [...this.contacts];
   }
 
-  viewContactDetail(contactId: number) {
-    this.router.navigate(['/contact', contactId]); 
+  viewContactDetail(contactId: number): void {
+    this.router.navigate(['/contact', contactId]);
   }
 }
